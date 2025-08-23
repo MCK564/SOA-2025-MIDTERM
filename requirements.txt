@@ -1,23 +1,7 @@
-# Core FastAPI
-fastapi==0.111.0
-uvicorn[standard]==0.30.0
-
-# Database (SQLAlchemy + Alembic migrations)
-sqlalchemy==2.0.30
-alembic==1.13.1
-
-# Pydantic for validation
-pydantic==2.7.1
-pydantic-settings==2.2.1
-
-# Async DB driver (choose one depending on DB)
-asyncpg==0.29.0       # PostgreSQL
-aiomysql==0.2.0       # MySQL / MariaDB
-# or install sqlite (built-in with Python)
-
-# Optional: Password hashing + JWT auth
-passlib[bcrypt]==1.7.4
-python-jose[cryptography]==3.3.0
-
-# Optional: Dotenv (env config)
-python-dotenv==1.0.1
+fastapi
+uvicorn[standard]
+sqlalchemy
+pydantic
+alembic
+python-dotenv
+mysql-connector-python

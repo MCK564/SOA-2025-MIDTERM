@@ -16,7 +16,10 @@ class Tuition(Base):
     id = Column(Integer, primary_key=True, index=True)
 
     student_id = Column(String(36), ForeignKey("users.id"))
-    student = relationship("User", back_populates="tuitions")
+    student = relationship("User", foreign_keys=[student_id], back_populates="tuitions_as_student")
+
+    payer_id = Column(String(36), ForeignKey("users.id"))
+    payer = relationship("User", foreign_keys=[payer_id], back_populates="tuitions_as_payer")
 
     payments = relationship("Payment", back_populates="tuition")
 
@@ -25,4 +28,3 @@ class Tuition(Base):
     description = Column(String(255))
     expires_at = Column(DateTime)
 
-    payer_id = Column(String(36), ForeignKey("users.id"))

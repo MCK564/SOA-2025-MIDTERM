@@ -16,6 +16,7 @@ class User(Base):
     password = Column(String(255))
     email = Column(String(255), unique=True, index=True)
     fullname = Column(String(255))
+    address = Column(String(255))
     phone = Column(String(10))
     available_balance = Column(Double, default=0.00)
     role = Column(Enum(Role), default=Role.STUDENT)

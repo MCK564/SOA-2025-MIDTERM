@@ -11,3 +11,4 @@ class TuitionResponse(BaseModel):
     student_id: str
 
     model_config = ConfigDict(from_attributes=True)
+

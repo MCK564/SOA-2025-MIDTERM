@@ -4,11 +4,6 @@ from models.user import User
 from core.security import create_access_token, create_refresh_token, verify_token
 
 
-def get_user_tuitions(db:Session, user_id: str, skip: int = 0, limit: int =100):
-    query = db.query(Tuition).filter(Tuition.student_id == user_id)
-    total = query.count()
-    items = query.offset(skip).limit(limit).all()
-    return total, items
 
 def user_login(db:Session, username:str, password:str):
 
@@ -28,7 +23,8 @@ def user_login(db:Session, username:str, password:str):
         return access_token, refresh_token
 
 
-def change_password(db:Session):
+def change_password(db:Session, user_id:str, new_password:str):
+
     return None
 
 

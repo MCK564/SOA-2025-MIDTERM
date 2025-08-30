@@ -12,7 +12,7 @@ from core.database import get_db
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
-# 1. login
+
 @router.post("/login", response_model=schemas.user.UserLoginResponse)
 async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     username  = form_data.username
@@ -35,12 +35,8 @@ async def refresh_token(db: Session = Depends(get_db), token: str = Depends(oaut
         refresh_token=new_refresh_token,
     )
 
-@router.get("/hi")
-async def hi():
-    return {"hi": "hi"}
 
 
 
-# 2. add new student(only by admin)
 
 

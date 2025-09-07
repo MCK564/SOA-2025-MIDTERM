@@ -13,10 +13,12 @@ def generate_otp(length: int =6)-> str:
     return ''.join(random.choices(string.digits, k = length))
 
 
-async def send_otp(email: str, user_id: str, background_tasks: BackgroundTasks):
+async def send_otp(email: str, payment_id:int, background_tasks: BackgroundTasks):
     otp = generate_otp()
-
-    await redis_client.set(otp, email, ex=OTP_EXPIRE_TIME)
+    key = f"otp:payment:{payment_id}"
+    await redis_client.set(key, otp, ex=OTP_EXPIRE_TIME)
+    value = await redis_client.get(otp)
+    print("Stored in redis:", value)
 
     email_subject = "Tuition payment OTP verification"
     email_body = f"""
@@ -40,12 +42,10 @@ async def send_otp(email: str, user_id: str, background_tasks: BackgroundTasks):
     return True
 
 
-async def verify_otp(email: str, otp: str):
-   stored_email = redis_client.get(otp)
-
-   if stored_email is None:
-       return False
-   elif stored_email.decode() != email:
+async def verify_otp(key: str, otp: str):
+   otp_from_redis = await redis_client.get(key)
+   print("Stored email from redis:", otp)
+   if otp_from_redis != otp is None:
        return False
    else:
        redis_client.delete(otp)

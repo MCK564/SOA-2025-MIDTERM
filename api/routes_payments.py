@@ -33,7 +33,7 @@ async def make_new_payment(request: PaymentRequest,background_tasks: BackgroundT
 
 @router.post("/verify")
 async def verify_payment(request: VerifyPaymentRequest, cur_user: models.User =Depends(get_current_user), db: Session = Depends(get_db)):
-    return  payment_service.verify_payment(request.email, request.payment_id, request.otp, db, cur_user)
+    return await payment_service.verify_payment(request.email, request.payment_id, request.otp, db, cur_user)
 
 
 

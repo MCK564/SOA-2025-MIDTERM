@@ -33,4 +33,4 @@ services:
        - "6379:6379"
     volumes:
         - D:/Docker/volume/redis_data:/data
-    command: [ "redis-server", "--appendonly", "yes" ]
+    command: [ "redis-server", "--appendonly", "yes" ,"--notify-keyspace-events", "Ex"]

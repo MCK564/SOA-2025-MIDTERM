@@ -58,6 +58,7 @@ async def create_payment(tuition_id: int, cur_user: models.User, db: Session, ba
         db.refresh(payment)
         db.refresh(tuition)
         logger.info(f"Payment created | payment_id={payment.id}, tuition_id={tuition_id}, user={cur_user.id}")
+
         # Send OTP
         await otp_service.send_otp(cur_user.email, payment.id, background_tasks)
         logger.info(f"OTP sent successfully | user={cur_user.id}, email={cur_user.email}")
@@ -95,9 +96,13 @@ async def verify_payment(email: str, payment_id, otp:str , db:Session, curr_user
             db.commit()
             return {"message": "Payment verified successfully"}
         else:
-            payment.status = PaymentStatus.FAILED.value
-            db.commit()
+            # payment.status = PaymentStatus.FAILED.value
+            # tuition = db.query(models.Tuition).filter(models.Tuition.id == payment.tuition_id).first()
+            # tuition.status = TuitionStatus.NOT_YET_PAID.value
+            # db.commit()
             return {"message": "Invalid OTP"}
+    elif status == PaymentStatus.FAILED.value:
+        return {"message": "Payment failed. Please try again later."}
     return {"message": "Payment already verified"}
 
 

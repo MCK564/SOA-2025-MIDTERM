@@ -1,5 +1,6 @@
 import redis.asyncio  as redis
 
+from core.logger import logger
 from core.config import settings
 from core.database import get_db
 from models import Payment, Tuition
@@ -19,6 +20,7 @@ redis_client = redis.from_url(
 async def listen_for_expire_events():
     pubsub = redis_client.pubsub()
     await pubsub.psubscribe("__keyevent@0__:expired")
+    logger.info("✅ Started listening for Redis expire events...")
 
     async for message in pubsub.listen():
         if message["type"] == "pmessage":
@@ -28,6 +30,7 @@ async def listen_for_expire_events():
             if expired_key.startswith("otp:payment:"):
                 payment_id = int(expired_key.split(":")[-1])
                 handle_payment_expire(payment_id)
+
 
 
 def handle_payment_expire(payment_id: int):

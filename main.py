@@ -1,3 +1,5 @@
+import asyncio
+
 from apscheduler.schedulers.background import BackgroundScheduler
 from fastapi import FastAPI
 from sqlalchemy.orm import Session
@@ -11,6 +13,7 @@ from api.routes_payments import router as payment_router
 from api.routes_tuitions import router as tuition_router
 import redis
 from core.logger import logger
+from core.redis import listen_for_expire_events
 from utils.database_utils import mark_expired_tuitions
 
 Base.metadata.create_all(bind=engine)
@@ -71,6 +74,7 @@ app.include_router(tuition_router)
 @app.on_event("startup")
 async def startup_event():
     redis_client.set("startup_test", "FastAPI + Redis works!")
+    asyncio.create_task(listen_for_expire_events())
     logger.info("🚀 Application startup complete")
 
 @app.on_event("shutdown")

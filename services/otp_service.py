@@ -45,7 +45,7 @@ async def send_otp(email: str, payment_id:int, background_tasks: BackgroundTasks
 async def verify_otp(key: str, otp: str):
    otp_from_redis = await redis_client.get(key)
    print("Stored email from redis:", otp)
-   if otp_from_redis != otp is None:
+   if otp_from_redis is None or otp_from_redis != otp :
        return False
    else:
        redis_client.delete(otp)

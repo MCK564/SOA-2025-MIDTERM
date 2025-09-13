@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Aug 29, 2025 at 07:09 AM
+-- Generation Time: Sep 13, 2025 at 03:11 PM
 -- Server version: 8.0.28
 -- PHP Version: 8.2.18
 
@@ -30,11 +30,24 @@ SET time_zone = "+00:00";
 CREATE TABLE `payments` (
   `id` int NOT NULL,
   `amount` double NOT NULL,
-  `status` enum('SUCCESS','FAILED') DEFAULT NULL,
+  `status` enum('SUCCESS','FAILED','PENDING','PAID') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `user_id` varchar(36) DEFAULT NULL,
   `tuition_id` int DEFAULT NULL,
   `date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`id`, `amount`, `status`, `user_id`, `tuition_id`, `date`) VALUES
+(32, 17500000, 'SUCCESS', '52200001', 5, '2025-09-04 02:38:34'),
+(36, 17500000, 'PENDING', '52200001', 10, '2025-09-05 07:34:36'),
+(37, 17500000, 'PENDING', '52200001', 10, '2025-09-05 07:48:37'),
+(38, 17500000, 'PENDING', '52200001', 10, '2025-09-05 07:50:53'),
+(39, 17500000, 'SUCCESS', '52200001', 10, '2025-09-07 08:27:32'),
+(41, 17500000, 'FAILED', '52200001', 15, '2025-09-08 01:08:43'),
+(42, 17500000, 'FAILED', '52200001', 15, '2025-09-08 01:44:27');
 
 -- --------------------------------------------------------
 
@@ -57,21 +70,21 @@ CREATE TABLE `tuitions` (
 --
 
 INSERT INTO `tuitions` (`id`, `student_id`, `payer_id`, `amount`, `status`, `description`, `expires_at`) VALUES
-(1, '52200001', '52200001', 15000000, 'PAID', 'Tuition Semester 1 (2022-2023)', '2023-01-15 23:59:59'),
+(1, '52200001', '52200001', 15000000, 'IN_PROCESS', 'Tuition Semester 1 (2022-2023)', '2023-01-15 23:59:59'),
 (2, '52200001', '52200001', 16000000, 'PAID', 'Tuition Semester 2 (2022-2023)', '2023-06-30 23:59:59'),
 (3, '52200001', NULL, 16500000, 'EXPIRED', 'Tuition Semester 1 (2023-2024)', '2023-12-31 23:59:59'),
 (4, '52200001', NULL, 17000000, 'IN_PROCESS', 'Tuition Semester 2 (2023-2024)', '2024-06-30 23:59:59'),
-(5, '52200001', NULL, 17500000, 'NOT_YET_PAID', 'Tuition Semester 1 (2024-2025)', '2024-12-31 23:59:59'),
+(5, '52200001', '52200001', 17500000, 'PAID', 'Tuition Semester 1 (2024-2025)', '2024-12-31 23:59:59'),
 (6, '52200002', '52200002', 15000000, 'PAID', 'Tuition Semester 1 (2022-2023)', '2023-01-15 23:59:59'),
 (7, '52200002', NULL, 16000000, 'EXPIRED', 'Tuition Semester 2 (2022-2023)', '2023-06-30 23:59:59'),
 (8, '52200002', '52200002', 16500000, 'PAID', 'Tuition Semester 1 (2023-2024)', '2023-12-31 23:59:59'),
 (9, '52200002', NULL, 17000000, 'IN_PROCESS', 'Tuition Semester 2 (2023-2024)', '2024-06-30 23:59:59'),
-(10, '52200002', NULL, 17500000, 'NOT_YET_PAID', 'Tuition Semester 1 (2024-2025)', '2024-12-31 23:59:59'),
+(10, '52200002', '52200001', 17500000, 'PAID', 'Tuition Semester 1 (2024-2025)', '2024-12-31 23:59:59'),
 (11, '52200003', '52200003', 15000000, 'PAID', 'Tuition Semester 1 (2022-2023)', '2023-01-15 23:59:59'),
 (12, '52200003', '52200003', 16000000, 'PAID', 'Tuition Semester 2 (2022-2023)', '2023-06-30 23:59:59'),
 (13, '52200003', '52200003', 16500000, 'PAID', 'Tuition Semester 1 (2023-2024)', '2023-12-31 23:59:59'),
 (14, '52200003', NULL, 17000000, 'EXPIRED', 'Tuition Semester 2 (2023-2024)', '2024-06-30 23:59:59'),
-(15, '52200003', NULL, 17500000, 'NOT_YET_PAID', 'Tuition Semester 1 (2024-2025)', '2024-12-31 23:59:59');
+(15, '52200003', '52200001', 17500000, 'NOT_YET_PAID', 'Tuition Semester 1 (2024-2025)', '2024-12-31 23:59:59');
 
 -- --------------------------------------------------------
 
@@ -97,8 +110,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `fullname`, `phone`, `available_balance`, `role`, `address`) VALUES
 ('000001', 'admin', '123456', 'admin@example.com', 'System Administrator', '0909123456', 1000000, 'ADMIN', NULL),
-('52200001', 'student01', '123456', 'chikha13122@gmail.com', 'Nguyen Van A', '0911222333', 50000000, 'STUDENT', NULL),
-('52200002', 'student02', '123456', 'stu02@example.com', 'Tran Thi B', '0922333444', 30000000, 'STUDENT', NULL),
+('52200001', 'student01', '123456', 'chikha13122@gmail.com', 'Nguyen Van A', '0911222333', 90000000, 'STUDENT', NULL),
+('52200002', 'student02', '123456', 'khamai05767@gmail.com', 'Tran Thi B', '0922333444', 30000000, 'STUDENT', NULL),
 ('52200003', 'student03', '123456', 'stu03@example.com', 'Le Van C', '0933444555', 2000000, 'STUDENT', NULL);
 
 --
@@ -140,7 +153,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `tuitions`

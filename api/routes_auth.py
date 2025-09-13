@@ -17,11 +17,8 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     username  = form_data.username
     password  = form_data.password
-    access_token, refresh_token = user_login(db, username, password)
-    return schemas.user.UserLoginResponse(
-        access_token=access_token,
-        refresh_token=refresh_token,
-    )
+    return user_login(db, username, password)
+
 
 
 @router.post("/refresh", response_model=schemas.user.UserLoginResponse)

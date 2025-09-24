@@ -25,3 +25,4 @@ class User(Base):
     tuitions_as_student = relationship("Tuition", foreign_keys="[Tuition.student_id]", back_populates="student")
     tuitions_as_payer = relationship("Tuition", foreign_keys="[Tuition.payer_id]", back_populates="payer")
 
+

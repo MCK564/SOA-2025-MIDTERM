@@ -8,8 +8,6 @@ from jose import jwt, JWTError
 
 oauth2_scheme =  OAuth2PasswordBearer(tokenUrl="token")
 
-
-
 def create_access_token(data: dict, expires_delta: timedelta = None):
     to_encode = data.copy()
     expire = datetime.utcnow() + (expires_delta or timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES))

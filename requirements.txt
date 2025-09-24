@@ -1,9 +1,27 @@
-starlette
-python-jose
+# Web framework
 fastapi
 uvicorn[standard]
+
+# Database & ORM
 sqlalchemy
-pydantic
 alembic
-python-dotenv
-mysql-connector-python
+psycopg2-binary
+# mysqlclient
+# motor
+
+# Auth & Security
+python-jose[cryptography]
+passlib[bcrypt]
+bcrypt
+python-multipart            # Form data upload
+
+# Cache / Queue / Messaging
+redis
+aiokafka
+
+# File Upload / S3
+# boto3
+
+# Utils
+pydantic
+requests

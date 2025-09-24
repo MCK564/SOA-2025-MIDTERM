@@ -10,7 +10,8 @@ from schemas.mail import EmailSchema
 OTP_EXPIRE_TIME = settings.OTP_EXPIRE_TIME
 
 def generate_otp(length: int =6)-> str:
-    return ''.join(random.choices(string.digits, k = length))
+    return str(random.randint(100000, 999999))
+
 
 
 async def send_otp(email: str, payment_id:int, background_tasks: BackgroundTasks):

@@ -9,3 +9,5 @@ def get_user_tuitions(db:Session, user_id: str, skip: int = 0, limit: int =100):
     total = query.count()
     items = query.offset(skip).limit(limit).all()
     return total, items
+
+

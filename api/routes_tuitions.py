@@ -34,3 +34,5 @@ async def get_tuitions_by_student_id(
         "total": total,
         "tuitions": tuitions
     }
+
+

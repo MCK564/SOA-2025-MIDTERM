@@ -8,7 +8,7 @@ from models.TuitionStatus import TuitionStatus
 from models.payment import PaymentStatus
 
 # redis turn on notify events
-# docker exec -it be9e83b8687b redis-cli config set notify-keyspace-events Ex
+# docker exec -it 0636b74f7e96 redis-cli config set notify-keyspace-events Ex
 
 redis_client = redis.from_url(
     settings.REDIS_URL,
@@ -50,9 +50,9 @@ async def handle_payment_expire(payment_id: int):
                     Tuition.status == TuitionStatus.IN_PROCESS.value
                 ).update({"status": TuitionStatus.NOT_YET_PAID.value}, synchronize_session="fetch")
             db.commit()
-            print(f"✅ Payment {payment_id} expired and DB updated")
+            print(f"Payment {payment_id} expired and DB updated")
         else:
-            print(f"❌ Payment {payment_id} was not in PENDING status, no update performed.")
+            print(f"Payment {payment_id} was not in PENDING status, no update performed.")
     except Exception as e:
         db.rollback()
         logger.error(f"DB Error for payment {payment_id}: {e}")

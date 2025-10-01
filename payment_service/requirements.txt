@@ -5,5 +5,10 @@ pyjwt
 python-jose
 pydantic-settings
 starlette
+redis
+aiokafka
 sqlalchemy
 mysql-connector-python
+pymysql
+cryptography
+asyncio

@@ -6,4 +6,7 @@ python-jose
 pydantic-settings
 starlette
 sqlalchemy
-mysql-connector-python
+alembic
+psycopg2-binary
+pymysql
+cryptography

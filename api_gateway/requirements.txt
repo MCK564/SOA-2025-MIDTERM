@@ -7,3 +7,4 @@ pydantic-settings
 starlette
 sqlalchemy
 mysql-connector-python
+python-multipart

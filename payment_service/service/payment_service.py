@@ -34,6 +34,7 @@ async def create_payment(tuition_id: int, cur_user_id: str, db: Session, backgro
 
         cur_user = user_resp.json()
         tuition = tuition_resp.json()
+
         if not tuition:
             return {"message": f"Tuition {tuition_id} not found."}
 

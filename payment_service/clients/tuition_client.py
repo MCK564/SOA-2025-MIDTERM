@@ -10,6 +10,7 @@ async def get_tuition(tuition_id: int):
         resp.raise_for_status()
         return resp.json()
 
+
 async def update_tuition_status(tuition_id: int, status: str):
     headers = {"X-Internal-Secret": settings.INTERNAL_SECRET}
     async with httpx.AsyncClient() as client:
@@ -18,6 +19,7 @@ async def update_tuition_status(tuition_id: int, status: str):
             json={"id": tuition_id, "status": status},
             headers=headers,
         )
+
 
 async def update_success_paid_tuition(tuition_id: int,payer_id:str):
     async with httpx.AsyncClient() as client:

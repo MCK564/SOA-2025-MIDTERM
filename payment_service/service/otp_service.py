@@ -21,10 +21,12 @@ async def send_otp(email: str, payment_id: int):
         await redis_client.set(key, otp, ex=settings.OTP_EXPIRE_TIME)
         value = await redis_client.get(key)
         print(f"[BACKGROUND TASK] Stored in redis for payment {payment_id}: {value}")
+
         await send_otp_message(email, otp, payment_id)
         return True
     except Exception as e:
         print(f" [BACKGROUND TASK ERROR] Failed to send OTP for payment_id {payment_id}: {e}")
+
 
 
 async def verify_otp(key: str, otp: str):

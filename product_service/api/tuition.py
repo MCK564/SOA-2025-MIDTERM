@@ -22,7 +22,7 @@ async def get_my_tuitions(
 
 
 
-@router.get("student/{student_id}")
+@router.get("/student/{student_id}")
 async def get_tuitions_by_student_id(
         student_id: str,
         x_user_i: str = Header(..., alias="X-User-Id"),
@@ -47,6 +47,7 @@ async def get_tuition_id(
 class UpdateTuitionStatusRequest(BaseModel):
     status: str
     id: int
+
 
 @router.post("/update-status")
 async def update_tuition_id(

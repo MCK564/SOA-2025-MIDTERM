@@ -166,7 +166,7 @@ services:
       - app-network
     volumes:
       - ./notification_service:/app
-    command: ["/app/start.sh"]
+    command: ["bash","-lc","test -f /app/start.sh && sed -i 's/\\r$//' /app/start.sh && chmod +x /app/start.sh && /app/start.sh"]
 
 
   auth-service:

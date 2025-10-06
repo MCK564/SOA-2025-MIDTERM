@@ -8,5 +8,6 @@
 
 5. run "docker compose up" to run services
 
-6. run "docker compose logs -f <service name> to see logs"
+6. run "docker compose logs -f <service name>" to see logs
+
 
